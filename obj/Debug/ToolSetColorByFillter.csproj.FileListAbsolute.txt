@@ -1,0 +1,16 @@
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\ToolSetColorByFillter.csproj.AssemblyReference.cache
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\ToolSetColorByFillter.csproj.CoreCompileInputs.cache
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\bin\Debug\ToolSetColorByFillter.dll
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\bin\Debug\ToolSetColorByFillter.pdb
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\ToolSetColorByFillter.dll
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\ToolSetColorByFillter.pdb
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\Views\MainWindows.g.cs
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\ToolSetColorByFillter_MarkupCompile.cache
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\ToolSetColorByFillter_MarkupCompile.lref
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\Views\MainWindows.baml
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\ToolSetColorByFillter.g.resources
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\bin\Debug\Microsoft.Expression.Interactions.dll
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\bin\Debug\System.Windows.Interactivity.dll
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\bin\Debug\Microsoft.Expression.Interactions.xml
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\bin\Debug\System.Windows.Interactivity.xml
+D:\Học Tập\AppRevit\ToolSetColorByFillter\ToolSetColorByFillter\obj\Debug\ToolSetColorByFillter.csproj.CopyComplete
