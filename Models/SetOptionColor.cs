@@ -15,7 +15,7 @@ namespace ToolSetColorByFillter.Models
         {
             var getallFillRegions = new FilteredElementCollector(doc).OfClass(typeof(FillPatternElement)).ToElements().ToList().FirstOrDefault();
 
-            this.SetProjectionLineColor(color);
+            //this.SetProjectionLineColor(color);
 
             this.SetSurfaceForegroundPatternColor(color);
 

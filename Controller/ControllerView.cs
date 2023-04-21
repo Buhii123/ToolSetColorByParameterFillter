@@ -18,7 +18,14 @@ namespace ToolSetColorByFillter.Controller
 {
     public class ControllerView : ViewModelBase
     {
+        private UIDocument _uidoc;
+        private Document _doc;
         private MainWindows _mainview;
+        private List<Parameter> _parameter;
+        private List<GruopElement> _gruopElements;
+        private List<ElementId> _elementIds;
+        private FilteredElementCollector _collector;
+
         public MainWindows Mainview
         {
             get
@@ -35,9 +42,6 @@ namespace ToolSetColorByFillter.Controller
                 OnPropertyChanged(nameof(Mainview));
             }
         }
-
-
-        private List<Parameter> _parameter;
         public List<Parameter> Parameters
         {
             get
@@ -50,7 +54,6 @@ namespace ToolSetColorByFillter.Controller
                 OnPropertyChanged(nameof(Parameters));
             }
         }
-        private List<GruopElement> _gruopElements;
         public List<GruopElement> GruopsElement
         {
             get
@@ -63,7 +66,6 @@ namespace ToolSetColorByFillter.Controller
                 OnPropertyChanged(nameof(GruopsElement));
             }
         }
-        private List<ElementId> _elementIds;
         public List<ElementId> ElementIds
         {
             get
@@ -76,11 +78,11 @@ namespace ToolSetColorByFillter.Controller
                 OnPropertyChanged(nameof(ElementIds));
             }
         }
-      
-        private Document _doc;
-        private UIDocument _uidoc;
-        private FilteredElementCollector collector;
         public List<GetCategoryAndCount> Categories { get; set; } = new List<GetCategoryAndCount>();
+
+
+
+
         public ControllerView(Document doc, UIDocument uidoc)
         {
             this._doc = doc;
@@ -88,7 +90,7 @@ namespace ToolSetColorByFillter.Controller
 
             TransactionMethod.TranTransactionRun(ResetTemporary, _doc, "UnHide");
 
-            collector = new FilteredElementCollector(doc, doc.ActiveView.Id);
+            _collector = new FilteredElementCollector(doc, doc.ActiveView.Id);
             Categories = GetCategories();
             SelectionChangedCommand = new RelayCommand<object>(p => true, p => SelectChangeListView());
             SelectionChangedParameterCommand = new RelayCommand<object>(p => true, p => SelectChangeListViewParamter());
@@ -100,7 +102,6 @@ namespace ToolSetColorByFillter.Controller
         }
 
 
-
         public RelayCommand<object> SelectionChangedCommand { get; set; }
         public RelayCommand<object> SelectionChangedParameterCommand { get; set; }
         public RelayCommand<object> SelectionListElementsCommand { get; set; }
@@ -110,13 +111,10 @@ namespace ToolSetColorByFillter.Controller
 
   
 
-        //HideElementCommand
-        //UnHideCommand
-
         private List<GetCategoryAndCount> GetCategories()
         {
-            CategoryFilter categoriesFilter = new CategoryFilter(collector);
-            ElementFillter elementFilter = new ElementFillter(collector);
+            CategoryFilter categoriesFilter = new CategoryFilter(_collector);
+            ElementFillter elementFilter = new ElementFillter(_collector);
 
             return categoriesFilter.ListItems()
                 .Select(c => new GetCategoryAndCount(c, elementFilter.ListItems()))
@@ -125,7 +123,7 @@ namespace ToolSetColorByFillter.Controller
         }
         private void SelectChangeListView()
         {
-
+            this._mainview.lvParameters.SelectedItem = null;
             var getcategory = this._mainview.lvCategory?.SelectedItem as GetCategoryAndCount;
             this._mainview.lvParameters.SelectedIndex = 0;
             Parameters = getcategory.ElementAll.GetParameters();
@@ -134,12 +132,11 @@ namespace ToolSetColorByFillter.Controller
         private void SelectChangeListViewParamter()
         {
 
-            List<string> parameters = new List<string>();
-            List<GruopElement> gruopsElement = new List<GruopElement>();
+            var parameters = new List<string>();
             var parameter = this._mainview.lvParameters?.SelectedItem as Parameter;
             var getcategory = this._mainview.lvCategory?.SelectedItem as GetCategoryAndCount;
-            Random random = new Random();
-            List<GruopElement> NewEleme = new List<GruopElement>();
+            var random = new Random();
+            var NewEleme = new List<GruopElement>();
             if (parameter != null)
             {
 
