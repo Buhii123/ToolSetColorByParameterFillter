@@ -98,7 +98,7 @@ namespace ToolSetColorByFillter.Controller
             SelectionListElementsCommand = new RelayCommand<object>(p => true, p => SelectionListElements());
             HideElementCommand = new RelayCommand<object>(p => true, p => HideElement());
             UnHideCommand = new RelayCommand<object>(p => true, p => UnHideAll());
-           
+
         }
 
 
@@ -109,7 +109,7 @@ namespace ToolSetColorByFillter.Controller
         public RelayCommand<object> HideElementCommand { get; set; }
         public RelayCommand<object> UnHideCommand { get; set; }
 
-  
+
 
         private List<GetCategoryAndCount> GetCategories()
         {
@@ -132,22 +132,21 @@ namespace ToolSetColorByFillter.Controller
         private void SelectChangeListViewParamter()
         {
 
-            var parameters = new List<string>();
             var parameter = this._mainview.lvParameters?.SelectedItem as Parameter;
-            var getcategory = this._mainview.lvCategory?.SelectedItem as GetCategoryAndCount;
-            var random = new Random();
-            var NewEleme = new List<GruopElement>();
             if (parameter != null)
             {
-
+                var getcategory = this._mainview.lvCategory?.SelectedItem as GetCategoryAndCount;
+                var NewEleme = new List<GruopElement>();
+                var parameters = new List<string>();
+                var random = new Random();
                 parameters.AddRange(getcategory.ElementAll
                     .Select(el => el?
                     .LookupParameter(parameter.Definition.Name)?
                     .AsValueString())
                     .Where(p => p != null));
-                var param = parameters.Distinct();
+                var param = parameters.Distinct();            
                 NewEleme.AddRange(param
-                        .Select(p => new GruopElement(p, parameter, getcategory.ElementAll, GetRandomColor(random))));
+                       .Select(p => new GroupElementBuilder().SetValueParameter(p).SetBackground(GetRandomColor(random)).SetElements(getcategory.ElementAll, parameter).Build()));
                 GruopsElement = NewEleme;
             }
 
@@ -155,7 +154,7 @@ namespace ToolSetColorByFillter.Controller
         }
         private void Apply()
         {
-          
+
             using (TransactionGroup gr = new TransactionGroup(_doc, "Gruop Fillter"))
             {
                 gr.Start();
@@ -164,7 +163,7 @@ namespace ToolSetColorByFillter.Controller
                     foreach (ElementByFilter el in grelemetn.Elements)
                     {
                         if (el != null) TransactionMethod.TranTransactionRun(SetColorElement, el, _doc, "Hide Element");
-                      
+
                     }
                 }
                 gr.Assimilate();
@@ -194,7 +193,7 @@ namespace ToolSetColorByFillter.Controller
         public void UnHideAll()
         {
             TransactionMethod.TranTransactionRun(ResetTemporary, _doc, "UnHide");
-            
+
         }
         private System.Windows.Media.Color GetRandomColor(Random random)
         {
@@ -203,23 +202,23 @@ namespace ToolSetColorByFillter.Controller
             return System.Windows.Media.Color.FromRgb(colorBytes[0], colorBytes[1], colorBytes[2]);
 
         }
-       
-        private void ResetTemporary() 
+
+        private void ResetTemporary()
         {
             Autodesk.Revit.DB.View view = _doc.ActiveView;
-           
+
             if (view.IsTemporaryHideIsolateActive())
             {
                 TemporaryViewMode tempView = TemporaryViewMode.TemporaryHideIsolate;
                 view.DisableTemporaryViewMode(tempView);
             }
-         
+
         }
-        private void HideElementsTemporary(List<ElementId> elementIds) 
+        private void HideElementsTemporary(List<ElementId> elementIds)
         {
             _doc.ActiveView.IsolateElementsTemporary(elementIds);
         }
-        private void SetColorElement(ElementByFilter e) 
+        private void SetColorElement(ElementByFilter e)
         {
             _doc.ActiveView.SetElementOverrides(e.Id, new SetOptionColor(_doc, e.Color));
         }

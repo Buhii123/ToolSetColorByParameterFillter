@@ -9,7 +9,7 @@ using ToolSetColorByFillter.Models;
 
 namespace ToolSetColorByFillter.Test
 {
-    public class GetCategoryAndCount : INewObject<Category>
+    public class GetCategoryAndCount
     {
         public Category InfoObject { get ; set ; } 
         public int Count { get; set; }

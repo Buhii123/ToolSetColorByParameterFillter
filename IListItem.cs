@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ToolSetColorByFillter
 {
-    public interface IListElement<T>
+    public interface IListItem<T>
     {
         List<T> ListItems();
     }

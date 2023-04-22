@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ToolSetColorByFillter.Models
 {
-    public class ElementFillter : IListElement<Element>
+    public class ElementFillter : IListItem<Element>
     {
         private FilteredElementCollector _collector;
         public ElementFillter(FilteredElementCollector collector)
@@ -16,21 +16,10 @@ namespace ToolSetColorByFillter.Models
         }
         public List<Element> ListItems()
         {
-            var elements = _collector
-                    .WhereElementIsNotElementType()
-                    .ToElements()
-                    .ToList();
-            var newElements = new List<Element>();
-            foreach (Element ele in elements)
-            {
-                if (ele != null && ele.Category!=null)
-                {
-                    newElements.Add(ele);
-                }
-                
-            }
-            return newElements; 
-
+            return _collector
+                .WhereElementIsNotElementType()
+                .Where(e => e.Category != null)
+                .ToList();
         }
     }
 }
