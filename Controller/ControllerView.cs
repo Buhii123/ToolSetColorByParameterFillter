@@ -13,6 +13,7 @@ using Autodesk.Revit.UI;
 using System.Windows.Media;
 using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
+using System.Windows.Threading;
 
 namespace ToolSetColorByFillter.Controller
 {
@@ -144,7 +145,7 @@ namespace ToolSetColorByFillter.Controller
                     .LookupParameter(parameter.Definition.Name)?
                     .AsValueString())
                     .Where(p => p != null));
-                var param = parameters.Distinct();            
+                var param = parameters.Distinct();
                 NewEleme.AddRange(param
                        .Select(p => new GroupElementBuilder().SetValueParameter(p).SetBackground(GetRandomColor(random)).SetElements(getcategory.ElementAll, parameter).Build()));
                 GruopsElement = NewEleme;
@@ -154,16 +155,23 @@ namespace ToolSetColorByFillter.Controller
         }
         private void Apply()
         {
-
             using (TransactionGroup gr = new TransactionGroup(_doc, "Gruop Fillter"))
             {
                 gr.Start();
+                double value = 0;
                 foreach (GruopElement grelemetn in GruopsElement)
                 {
+                    this._mainview.ProgressWindow.Maximum = grelemetn.Elements.Count;
                     foreach (ElementByFilter el in grelemetn.Elements)
                     {
-                        if (el != null) TransactionMethod.TranTransactionRun(SetColorElement, el, _doc, "Hide Element");
 
+                        if (el != null)
+                        {
+                            value++;
+                            this._mainview.ProgressWindow.Dispatcher?.Invoke(() => { this._mainview.ProgressWindow.Value = value; }, DispatcherPriority.Background);
+
+                            TransactionMethod.TranTransactionRun(SetColorElement, el, _doc, "Hide Element");
+                        }
                     }
                 }
                 gr.Assimilate();
@@ -188,6 +196,7 @@ namespace ToolSetColorByFillter.Controller
         }
         public void HideElement()
         {
+            var hide = true;
             if (ElementIds != null) TransactionMethod.TranTransactionRun(HideElementsTemporary, ElementIds, _doc, "Hide Element");
         }
         public void UnHideAll()

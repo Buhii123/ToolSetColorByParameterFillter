@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              Title="Bùi Thành Hiếu"             
-             Height="585" Width="520" 
+             Height="585" Width="690" 
              FontFamily="Agency FB" 
              FontSize="14" 
              FontWeight="Bold"
@@ -19,12 +19,21 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Column="0">
                     <Button Cursor="Hand" Margin="5" Height="25" Width="100" Content="Un Hide" Command="{Binding UnHideCommand}"></Button>
                     <Button Cursor="Hand" Margin="5" Height="25" Width="100" Content="Hide" Command="{Binding HideElementCommand }"></Button>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Grid.Column="1" DockPanel.Dock="Right" Orientation="Horizontal" >
+                <StackPanel  VerticalAlignment="Center" Grid.Column="1">
+                    <ProgressBar x:Name="ProgressWindow"
+                                 IsIndeterminate="False"
+                                 Height="20"
+                                 >
+                        
+                    </ProgressBar>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Grid.Column="2" DockPanel.Dock="Right" Orientation="Horizontal" >
                     <Button Cursor="Hand" Margin="5" Height="25" Width="100" Content="Apply" Command="{Binding ApplyCommand}"></Button>
                     <Button Cursor="Hand" Margin="5" Height="25" Width="100" Content="Canncel" ></Button>
                 </StackPanel>
