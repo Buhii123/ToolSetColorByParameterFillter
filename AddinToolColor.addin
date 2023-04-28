@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RevitAddIns>
+	<AddIn Type="Application">
+		<Name>Application</Name>
+		<AddInId>F8CF2EB1-E76E-401F-BC06-BB30BB32A9AF</AddInId>
+		<FullClassName>ToolSetColorByFillter.AppColor</FullClassName>
+		<Assembly>C:\ProgramData\Autodesk\Revit\Addins\2023\ColorFillter\ToolSetColorByFillter.dll</Assembly>
+		<VendorId>Buhii</VendorId>
+		<VendorDescription>Buhii</VendorDescription>
+	</AddIn>
+</RevitAddIns>
