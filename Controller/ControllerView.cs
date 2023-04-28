@@ -158,22 +158,24 @@ namespace ToolSetColorByFillter.Controller
             using (TransactionGroup gr = new TransactionGroup(_doc, "Gruop Fillter"))
             {
                 gr.Start();
-                double value = 0;
                 foreach (GruopElement grelemetn in GruopsElement)
                 {
+                    double value = 0;
                     this._mainview.ProgressWindow.Maximum = grelemetn.Elements.Count;
                     foreach (ElementByFilter el in grelemetn.Elements)
                     {
 
                         if (el != null)
                         {
-                            value++;
-                            this._mainview.ProgressWindow.Dispatcher?.Invoke(() => { this._mainview.ProgressWindow.Value = value; }, DispatcherPriority.Background);
 
                             TransactionMethod.TranTransactionRun(SetColorElement, el, _doc, "Hide Element");
+                            value++;
+                            this._mainview.ProgressWindow.Dispatcher?.Invoke(() => { this._mainview.ProgressWindow.Value = value; }, DispatcherPriority.Background);
                         }
                     }
                 }
+                MessageBox.Show("Done!");
+
                 gr.Assimilate();
             }
         }
